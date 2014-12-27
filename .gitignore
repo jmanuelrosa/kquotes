@@ -1,13 +1,2 @@
-*.pyc
-*__pycache__*
-settings/local.py
-media
-static
-*.mo
 *.log
-logs
-.venv
-.coverage
-.cache
-.\#*
 *.sw*
