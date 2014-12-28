@@ -10,7 +10,23 @@ paths = {
     ]
     sass: []
     coffee: ["app/coffee/**/*.coffee"]
-    js: []
+    css: [
+        "bower_components/angular-material/angular-material.css"        # angular-material
+    ]
+    js: [
+        "bower_components/jquery/dist/jquery.js"                        # jquery
+        "bower_components/lodash/dist/lodash.js"                        # lodash
+        "bower_components/underscore.string/lib/underscore.string.js"   # underscore.string
+        "bower_components/moment/moment.js"                             # moment
+        "bower_components/angular/angular.js"                           # angular
+        "bower_components/angular-route/angular-route.js"               # angular-route
+        "bower_components/angular-loader/angular-loader.js"             # angular-loader
+        "bower_components/angular-animate/angular-animate.js"           # angular-animate
+        "bower_components/angular-sanitize/angular-sanitize.js"         # angular-sanitize
+        "bower_components/angular-mocks/angular-mocks.js"               # angular-mocks
+        "bower_components/angular-aria/angular-aria.js"                 # angular-material
+        "bower_components/angular-material/angular-material.js"         # angular-material
+    ]
 }
 
 
