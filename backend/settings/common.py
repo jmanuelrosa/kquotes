@@ -21,44 +21,13 @@ ADMINS = (
 )
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '45njj_*_x(zlty(r-mp)4=4qp)r$6^#yh%7+0a&g3jsord=sk_'
+SECRET_KEY = "45njj_*_x(zlty(r-mp)4=4qp)r$6^#yh%7+0a&g3jsord=sk_"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 TEMPLATE_DEBUG = False
 
-ALLOWED_HOSTS = ['*']
-
-
-# Application definition
-
-INSTALLED_APPS = (
-    #'django.contrib.admin',
-    #'django.contrib.auth',
-    #'django.contrib.contenttypes',
-    #'django.contrib.sessions',
-    #'django.contrib.messages',
-    #'django.contrib.staticfiles',
-
-    'kquotes',
-
-    "rest_framework",
-    "django_jinja"
-)
-
-MIDDLEWARE_CLASSES = (
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-)
-
-ROOT_URLCONF = 'kquotes.urls'
-
-WSGI_APPLICATION = 'wsgi.application'
+ALLOWED_HOSTS = ["*"]
 
 
 # Database
@@ -75,14 +44,10 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
-
+LANGUAGE_CODE = "en-us"
+TIME_ZONE = "UTC"
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
 
@@ -90,13 +55,47 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
-STATIC_URL = '/static/'
+STATIC_URL = "/static/"
 
 
 # Media files
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
+
+
+# Application definition
+
+INSTALLED_APPS = (
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+
+    #"kquotes.base",
+    "kquotes.users",
+    #"kquotes.organizations",
+    #"kquotes.quotes",
+
+    "rest_framework",
+    "django_jinja"
+)
+
+MIDDLEWARE_CLASSES = (
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.auth.middleware.SessionAuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+)
+
+ROOT_URLCONF = "kquotes.urls"
+
+WSGI_APPLICATION = "wsgi.application"
 
 
 # Templates settings
@@ -119,3 +118,6 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     "django.core.context_processors.tz",
     "django.contrib.messages.context_processors.messages",
 ]
+
+# User model
+AUTH_USER_MODEL = "users.User"
