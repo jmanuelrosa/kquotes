@@ -74,9 +74,9 @@ INSTALLED_APPS = (
     "django.contrib.messages",
     "django.contrib.staticfiles",
 
-    #"kquotes.base",
+    "kquotes.base",
     "kquotes.users",
-    #"kquotes.organizations",
+    "kquotes.organizations",
     #"kquotes.quotes",
 
     "rest_framework",
