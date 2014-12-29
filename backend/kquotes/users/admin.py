@@ -1,5 +1,6 @@
 from django.contrib import admin
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group as DjangoGroup
+from django.contrib.auth.models import User as DjangoUser
 from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
 from django.contrib.auth.forms import AdminPasswordChangeForm
 from django.utils.translation import ugettext_lazy as _
@@ -9,6 +10,10 @@ from .forms import UserCreationForm
 from .forms import UserChangeForm
 
 
+admin.site.unregister(DjangoGroup)
+
+
+@admin.register(User)
 class UserAdmin(DjangoUserAdmin):
     # The forms to add and change user instances
     form = UserChangeForm
@@ -37,6 +42,3 @@ class UserAdmin(DjangoUserAdmin):
     search_fields = ("email","username", "full_name")
     ordering = ("email",)
     filter_horizontal = ()
-
-admin.site.register(User, UserAdmin)
-admin.site.unregister(Group)
