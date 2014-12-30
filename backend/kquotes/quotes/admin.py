@@ -12,4 +12,7 @@ class ScoreInline(admin.TabularInline):
 
 @admin.register(Quote)
 class QuoteAdmin(admin.ModelAdmin):
+    search_fields = ("quote", "explanation", "author", "external_author", "organization")
+    list_display = ("quote", "author", "external_author", "organization")
+    list_filter = ("organization",)
     inlines = [ScoreInline]

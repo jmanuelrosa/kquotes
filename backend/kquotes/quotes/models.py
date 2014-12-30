@@ -10,38 +10,38 @@ class Score(models.Model):
                                                                                 validators.MaxValueValidator(5)])
 
     class Meta:
-        verbose_name = _(u"Score")
-        verbose_name_plural = _(u"Scores")
+        verbose_name = _("Score")
+        verbose_name_plural = _("Scores")
         unique_together = ("user", "quote")
 
 
 class Quote(models.Model):
     quote = models.TextField(null=False, blank=False,
-                             verbose_name=_(u"quote"))
-    member = models.ForeignKey("users.User", null=True, blank=True,
-                                 related_name="quotes",
-                                 verbose_name=_(u"employee"))
+                             verbose_name=_("quote"))
+    author = models.ForeignKey("users.User", null=True, blank=True,
+                               related_name="quotes",
+                               verbose_name=_("author"))
     external_author = models.CharField(max_length=256, null=False, blank=True,
-                                       verbose_name=_(u"external author"))
+                                       verbose_name=_("external author"))
 
     explanation = models.TextField(null=False, blank=True,
-                                   verbose_name=_(u"explanation"))
+                                   verbose_name=_("explanation"))
     creator = models.ForeignKey("users.User", null=True, blank=True,
                                 related_name="quotes_created",
-                                verbose_name=_(u"author"))
+                                verbose_name=_("creator"))
     organization = models.ForeignKey("organizations.Organization", null=True, blank=True,
                                      related_name="quotes",
-                                     verbose_name=_(u"organization"))
+                                     verbose_name=_("organization"))
     created_date = models.DateTimeField(null=False, blank=False, auto_now_add=True,
-                                        verbose_name=_(u"created date"))
+                                        verbose_name=_("created date"))
 
 
     users_rates = models.ManyToManyField("users.User", related_name='quotes_rated',
                                          null=True, blank=True, default=None, through="quotes.Score")
 
     class Meta:
-        verbose_name = _(u"quote")
-        verbose_name_plural = _(u"quotes")
+        verbose_name = _("quote")
+        verbose_name_plural = _("quotes")
         ordering = ["-created_date"]
 
     def __str__(self):

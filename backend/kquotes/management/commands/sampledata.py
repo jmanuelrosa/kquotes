@@ -7,6 +7,14 @@ from sampledatahelper.helper import SampleDataHelper
 from kquotes.users.models import User
 from kquotes.organizations.models import Organization
 from kquotes.organizations.models import Member
+from kquotes.quotes.models import Quote
+from kquotes.quotes.models import Score
+
+
+SD = SampleDataHelper(seed=12345678901)
+
+BASE_USERS = getattr(settings, "SAMPLEDATA_BASE_USERS", [])
+BASE_ORGANIZATIONS = getattr(settings, "SAMPLEDATA_BASE_ORGANIZATIONS", [])
 
 
 ####################################################
@@ -21,7 +29,7 @@ def create_superuser():
     if created:
         user.set_password(123123)
         user.save()
-        print ("- Create superuser: ", user)
+        print ("- Create superuser: {}".format(user))
 
     return user
 
@@ -34,7 +42,7 @@ def create_user(username=None, email=None, full_name=None):
     user.set_password(123123)
     user.save()
 
-    print ("- Create user: ", user)
+    print ("- Create user: {}".format(user))
     return user
 
 
@@ -46,7 +54,7 @@ def create_organization(name=None):
     org = Organization(name=name)
     org.save()
 
-    print("- Create organization: ", org)
+    print("- Create organization: {}".format(org))
     return org
 
 
@@ -57,22 +65,37 @@ def create_member(org, user, is_owner=False, is_admin=False):
                     is_admin=is_admin)
     member.save()
 
-    print("- Create member: ", member)
+    print("- Create member: {}".format(member))
     return member
+
+
+####################################################
+## Quotes
+####################################################
+
+def create_quote(org):
+    quote = Quote(quote=SD.paragraph(),
+                  explanation=SD.paragraph(),
+                  creator=SD.db_object_from_queryset(org.members).user,
+                  organization=org)
+    if SD.boolean():
+        quote.author = SD.db_object_from_queryset(org.members).user
+    else:
+        quote.external_author = SD.words(2, 3)
+    quote.save()
+
+    print("- Create quote: #{}".format(quote.id))
+    return quote
 
 
 ####################################################
 ## MAIN COMMAND
 ####################################################
 
-SD = SampleDataHelper(seed=12345678901)
-
-BASE_USERS = getattr(settings, "SAMPLEDATA_BASE_USERS", [])
-BASE_ORGANIZATIONS = getattr(settings, "SAMPLEDATA_BASE_ORGANIZATIONS", [])
-
 class Command(BaseCommand):
     @transaction.atomic
     def handle(self, *args, **options):
+        # Create superuser
         create_superuser()
 
         # Create Users
@@ -81,8 +104,14 @@ class Command(BaseCommand):
         # Create organizations
         orgs = [create_organization(**org) for org in BASE_ORGANIZATIONS]
         for org in orgs:
+            # Create owner
             owner = SD.db_object(User)
             create_member(org, owner, is_owner=True, is_admin=True)
 
+            # Create members
             for user in User.objects.exclude(id=owner.id)[:SD.int(1, User.objects.all().count())]:
                 create_member(org, user, is_owner=SD.boolean(), is_admin=SD.boolean())
+
+            # Create quotes
+            for i in range(0, 20 + SD.int(max_value=80)):
+                create_quote(org)
