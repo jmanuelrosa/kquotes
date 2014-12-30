@@ -78,7 +78,7 @@ INSTALLED_APPS = (
     "kquotes.base",
     "kquotes.users",
     "kquotes.organizations",
-    #"kquotes.quotes",
+    "kquotes.quotes",
 
     "rest_framework",
     "django_jinja"
