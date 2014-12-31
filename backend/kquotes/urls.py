@@ -1,10 +1,31 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 from django.contrib import admin
 
-urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'kquotes.views.home', name='home'),
-    # url(r'^blog/', include('blog.urls')),
+from .routers import router
+
+urlpatterns = [
+    url(r'^api/v1/', include(router.urls)),
+    url(r'^api/v1/api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
     url(r'^admin/', include(admin.site.urls)),
-)
+]
+
+
+
+from django.conf import settings
+
+if settings.DEBUG:
+    # Hardcoded only for development server
+    from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+    urlpatterns += staticfiles_urlpatterns(prefix="/static/")
+
+    def mediafiles_urlpatterns(prefix):
+        """
+        Method for serve media files with runserver.
+        """
+        import re
+        from django.views.static import serve
+
+        return [url(r'^%s(?P<path>.*)$' % re.escape(prefix.lstrip('/')), serve,
+                    {'document_root': settings.MEDIA_ROOT})]
+    urlpatterns += mediafiles_urlpatterns(prefix="/media/")
