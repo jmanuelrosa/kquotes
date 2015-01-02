@@ -8,6 +8,8 @@ watch               = require "gulp-watch"
 jade                = require "gulp-jade"
 jadeInheritance     = require "gulp-jade-inheritance"
 
+sass                = require "gulp-ruby-sass"
+
 coffee              = require "gulp-coffee"
 
 
@@ -20,14 +22,19 @@ paths = {
         index: "app/index.jade"
         partials: "app/partials/**/*.jade"
     }
-    sass: []
+    sass: [
+        "app/styles/**/*.scss"
+    ]
+    tmpCss: [
+        "tmp/styles/**/*.css"
+    ]
+    css: [
+        "bower_components/angular-material/angular-material.css"        # angular-material
+    ]
     coffee: [
         "app/coffee/app.coffee"
         "app/coffee/utils..coffee"
         "app/coffee/**/*.coffee"
-    ]
-    css: [
-        "bower_components/angular-material/angular-material.css"        # angular-material
     ]
     js: [
         "bower_components/hammerjs/hammer.js"                           # hammerjs
@@ -72,11 +79,20 @@ gulp.task "_html-index", ->
 ## CSS
 ######################################
 
-gulp.task "_css-app", ->
-    # TODO
+gulp.task "_sass-app", ->
+    gulp.src(paths.sass)
+        .pipe(plumber())
+        .pipe(cache("scss"))
+        .pipe(sass())
+        .pipe(gulp.dest("#{paths.tmp}/styles"))
+
+gulp.task "_css-app", ["_sass-app"], ->
+    gulp.src(paths.tmpCss)
+        .pipe(concat("app.css"))
+        .pipe(gulp.dest(paths.tmp))
 
 gulp.task "_del_css-app", (cb) ->
-    del(["#{paths.tmp}/vendor.css"], cb)
+    del(["#{paths.tmp}/styles", "#{paths.tmp}/app.css"], cb)
 
 
 gulp.task "_css-vendor", ->
@@ -85,7 +101,7 @@ gulp.task "_css-vendor", ->
         .pipe(gulp.dest(paths.tmp))
 
 gulp.task "_del_css-vendor", (cb )->
-    del(["#{paths.tmp}/app.css"], cb)
+    del(["#{paths.tmp}/vendor.css"], cb)
 
 
 gulp.task "_css", ["_del_css-app", "_css-app", "_del_css-vendor", "_css-vendor"], ->
