@@ -33,8 +33,12 @@ paths = {
     ]
     coffee: [
         "app/coffee/app.coffee"
-        "app/coffee/utils..coffee"
-        "app/coffee/**/*.coffee"
+        "app/coffee/utils.coffee"
+        "app/coffee/classes.coffee"
+        "app/coffee/modules/init.coffee"
+        "app/coffee/modules/base/**/*.coffee"
+        "app/coffee/modules/resources/**/*.coffee"
+        "app/coffee/modules/auth/**/*.coffee"
     ]
     js: [
         "bower_components/hammerjs/hammer.js"                           # hammerjs

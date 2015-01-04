@@ -7,7 +7,12 @@
 
 modules = [
     # Main Global Modules
+    "kquotesBase"
+    "kquotesResources"
+    "kquotesAuth"
+
     # Specific Modules
+
     # Vendor modules
     "ngRoute"
     "ngSanitize"
