@@ -158,6 +158,7 @@ gulp.task "_dev-server", ->
 gulp.task "_dev-watch", ->
     gulp.watch     paths.jade.index,       ["_html-index"]
     gulp.watch     paths.jade.partials,    ["_html-partials"]
+    gulp.watch     paths.sass,             ["_css"]
     gulp.watch     paths.css,              ["_css"]
     gulp.watch     paths.coffee,           ["_js-app"]
     gulp.watch     paths.js,               ["_js-libs"]
