@@ -1,13 +1,13 @@
 h1 kQuotes
 
-md-content.login
+md-content.login(ng-controller="LoginController as ctrl")
     div
         p Hi buddy, first of all you have to...
 
-    form(layout="column", layout-align="center")
-        md-text-float(label="type your mail", type="email", required)
+    form(layout="column", layout-align="center", ng-submit="ctrl.submitLogin()")
+        md-text-float(label="type your username", type="text", ng-model="username", required)
 
-        md-text-float(label="type your password", type="password", required)
+        md-text-float(label="type your password", type="password", ng-model="password", required)
 
         md-button.md-primary.md-raised
             | Login

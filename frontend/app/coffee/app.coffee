@@ -27,11 +27,15 @@ module = angular.module("kquotes", modules)
 ## Configuration
 ###########################
 
-configure = ($routeProvider, $locationProvider, $httpProvider) ->
+configure = ($routeProvider, $locationProvider, $httpProvider, $provide) ->
     $routeProvider.when("/",
-        {templateUrl: "/partials/login.html",})
-    $routeProvider.when("/org/:slug/",
+        {templateUrl: "/partials/profile-me.html"})
+    $routeProvider.when("/org/:slug",
         {templateUrl: "/partials/organization-home.html"})
+
+    ## Auth
+    $routeProvider.when("/login/",
+        {templateUrl: "/partials/login.html",})
 
     ## Errors/Exceptions
     $routeProvider.when("/error",
@@ -55,8 +59,23 @@ configure = ($routeProvider, $locationProvider, $httpProvider) ->
     $httpProvider.defaults.headers.put = defaultHeaders
     $httpProvider.defaults.headers.get = {}
 
+    # Add next param when user try to access to a secction need auth permissions.
+    authHttpIntercept = ($q, $location, $navUrls) ->
+        httpResponseError = (response) ->
+            if response.status == 0
+                $location.path($navUrls.resolve("error"))
+                $location.replace()
+            else if response.status == 401
+                nextPath = $location.path()
+                $location.url($navUrls.resolve("login")).search("next=#{nextPath}")
+            return $q.reject(response)
 
-module.config(["$routeProvider", "$locationProvider", "$httpProvider", configure])
+        return {responseError: httpResponseError}
+
+    $provide.factory("authHttpIntercept", ["$q", "$location", "$kqNavUrls", authHttpIntercept])
+    $httpProvider.interceptors.push('authHttpIntercept')
+
+module.config(["$routeProvider", "$locationProvider", "$httpProvider", "$provide",  configure])
 
 
 ############################

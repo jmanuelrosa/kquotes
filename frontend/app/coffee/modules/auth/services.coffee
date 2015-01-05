@@ -48,6 +48,19 @@ class AuthService extends kquotes.Service
             return true
         return false
 
+    login: (username, passowrd) ->
+        @.logout()
+
+        return @rs.auth.login(username, passowrd).then (data) =>
+            user = @model.make_model("users", data.data)
+            @.setUser(user)
+            @.setToken(user.auth_token)
+            return user
+
+    logout: ->
+        @.removeToken()
+        @.clear()
+
 
 module = angular.module("kquotesAuth")
 module.service("$kqAuth", AuthService)

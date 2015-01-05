@@ -2,8 +2,8 @@ module = angular.module("kquotesResources")
 
 
 urls = {
-    "auth": "/auth"
-    "users": "/users"
+    "auth": "/auth/token/"
+    "users": "/users/"
 }
 
 # Initialize api urls service

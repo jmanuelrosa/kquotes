@@ -1,6 +1,18 @@
 kquotes = @kquotes
 
 
+kquotes.bindMethods = (object) =>
+    dependencies = _.keys(object)
+
+    methods = []
+
+    _.forIn object, (value, key) =>
+        if key not in dependencies
+            methods.push(key)
+
+    _.bindAll(object, methods)
+
+
 kquotes.bindOnce = (scope, attr, continuation) =>
     val = scope.$eval(attr)
     if val != undefined
