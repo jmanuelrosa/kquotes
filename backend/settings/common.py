@@ -27,6 +27,7 @@ SECRET_KEY = "45njj_*_x(zlty(r-mp)4=4qp)r$6^#yh%7+0a&g3jsord=sk_"
 DEBUG = False
 TEMPLATE_DEBUG = False
 
+APPEND_SLASH = False
 ALLOWED_HOSTS = ["*"]
 
 
@@ -128,9 +129,17 @@ AUTH_USER_MODEL = "users.User"
 
 # Rest framework settings
 REST_FRAMEWORK = {
+    # Default permiission TODO: Temporary
+    "DEFAULT_PERMISSION_CLASSES": (
+        "kquotes.base.api.permissions.IsAuthenticated",
+    ),
+
+    # Pagination
     "PAGINATE_BY": 10,                 # Default to 10
     "PAGINATE_BY_PARAM": "page_size",  # Allow client to override, using `?page_size=xxx`.
-    #"MAX_PAGINATE_BY": 100             # Maximum limit allowed when using `?page_size=xxx`.
+    "MAX_PAGINATE_BY": 100,             # Maximum limit allowed when using `?page_size=xxx`.
+
+    # Authentication
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',

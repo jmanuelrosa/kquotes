@@ -7,3 +7,11 @@ class Serializer(serializers.Serializer):
 
 class ModelSerializer(serializers.ModelSerializer):
     pass
+
+
+###############################
+## Fields
+###############################
+
+class SerializerMethodField(serializers.SerializerMethodField):
+    pass
