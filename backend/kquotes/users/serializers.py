@@ -1,4 +1,3 @@
-
 from kquotes.base.api import serializers
 
 from . import models
@@ -8,6 +7,12 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.User
         exclude = ("password", )
+
+
+class UserInfoSerializer(UserSerializer):
+    class Meta:
+        model = models.User
+        fields = ("id", "username", "full_name")
 
 
 from calendar import timegm
