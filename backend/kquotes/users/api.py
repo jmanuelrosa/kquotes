@@ -9,6 +9,10 @@ class UsersViewSet(viewsets.ModelCrudViewSet):
     queryset = models.User.objects.all()
     serializer_class = serializers.UserSerializer
 
+    def get_queryset(self):
+        orgs_id_list = self.request.user.memberships.values_list("organization", flat=True)
+        return self.queryset.filter(memberships__organization__in=orgs_id_list).distinct()
+
 
 from kquotes.base.api import permissions
 
