@@ -1,18 +1,24 @@
 from kquotes.base.api import serializers
 
 from . import models
+from . import gravatar
 
 
 class UserSerializer(serializers.ModelSerializer):
+    avatar_url = serializers.SerializerMethodField()
+
     class Meta:
         model = models.User
         exclude = ("password", )
+
+    def get_avatar_url(self, obj):
+        return gravatar.get_gravatar_url(obj.email)
 
 
 class UserInfoSerializer(UserSerializer):
     class Meta:
         model = models.User
-        fields = ("id", "username", "full_name")
+        fields = ("id", "username", "full_name", "avatar_url")
 
 
 from calendar import timegm

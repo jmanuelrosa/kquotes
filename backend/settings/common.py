@@ -126,6 +126,9 @@ TEMPLATE_CONTEXT_PROCESSORS = [
 # User model
 AUTH_USER_MODEL = "users.User"
 
+# Gravatar settings
+GRAVATAR_DEFAULT_AVATAR = ""
+GRAVATAR_AVATAR_SIZE = 50
 
 # Rest framework settings
 REST_FRAMEWORK = {
