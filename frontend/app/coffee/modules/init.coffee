@@ -20,12 +20,11 @@ urls = {
     # Auth
     "login": "/login"
 
-    # Profile
-    "profile-me": "/"
+    # Home
+    "home": "/"
 
     # Organizations
     "org-home": "/org/:slug"
-
 }
 
 init = ($log, $navurls) ->

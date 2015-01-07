@@ -23,7 +23,7 @@ class LoginController extends kquotes.Controller
             if @routeParams["next"] and @routeParams["next"] != @navUrls.resolve("login")
                 nextUrl = @routeParams["next"]
             else
-                nextUrl = @navUrls.resolve("profile-me")
+                nextUrl = @navUrls.resolve("home")
             @location.path(nextUrl)
 
         onError = (data) =>

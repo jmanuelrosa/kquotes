@@ -29,7 +29,7 @@ module = angular.module("kquotes", modules)
 
 configure = ($routeProvider, $locationProvider, $httpProvider, $provide) ->
     $routeProvider.when("/",
-        {templateUrl: "/partials/profile-me.html"})
+        {templateUrl: "/partials/home.html"})
     $routeProvider.when("/org/:slug",
         {templateUrl: "/partials/organization-home.html"})
 

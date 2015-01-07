@@ -1,0 +1,17 @@
+div(layout="column", layout-fill)
+
+    include components/toolbar
+
+    md-content.md-padding
+        md-list
+            //- ng-repeat
+            md-item
+                md-item-content
+                    div.md-tile-left
+                        img.avatar(src="https://pbs.twimg.com/profile_images/543454115297505280/KEIbBsfn.png",
+                                   height="70")
+                        span.author author
+                    div.md-tile-content
+                        div.quote quote
+                        div.explanation explanation
+                md-divider
