@@ -3,6 +3,8 @@ module = angular.module("kquotesResources")
 
 urls = {
     "auth": "/auth/token/"
+    "organizations": "/organizations/"
+    "quotes": "/quotes/"
     "users": "/users/"
 }
 

@@ -24,6 +24,8 @@ module.run([
 
     # Providers
     "$kqAuthResourcesProvider"
+    "$kqOrganizationsResourcesProvider"
+    "$kqQuotesResourcesProvider"
     "$kqUsersResourcesProvider"
 
     initResources
