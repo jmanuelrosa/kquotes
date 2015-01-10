@@ -9,9 +9,9 @@ modules = [
     # Main Global Modules
     "kquotesBase"
     "kquotesResources"
-    "kquotesAuth"
 
     # Specific Modules
+    "kquotesAuth"
 
     # Vendor modules
     "ngRoute"
@@ -65,7 +65,8 @@ configure = ($routeProvider, $locationProvider, $httpProvider, $provide) ->
             if response.status == 0
                 $location.path($navUrls.resolve("error"))
                 $location.replace()
-            else if response.status == 401
+            else if response.status == 401 or
+                    response.status == 403
                 nextPath = $location.path()
                 $location.url($navUrls.resolve("login")).search("next=#{nextPath}")
             return $q.reject(response)
