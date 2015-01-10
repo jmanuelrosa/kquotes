@@ -148,4 +148,10 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     )
+    JWT_VERIFY_EXPIRATION
+}
+
+JWT_AUTH = {
+    "JWT_ALGORITHM": "HS512",
+    "JWT_VERIFY_EXPIRATION": False
 }
