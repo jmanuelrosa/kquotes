@@ -39,6 +39,7 @@ paths = {
         "app/coffee/modules/base/**/*.coffee"
         "app/coffee/modules/resources/**/*.coffee"
         "app/coffee/modules/auth/**/*.coffee"
+        "app/coffee/modules/profile/**/*.coffee"
     ]
     js: [
         "bower_components/hammerjs/hammer.js"                           # hammerjs

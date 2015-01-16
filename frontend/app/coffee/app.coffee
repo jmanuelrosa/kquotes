@@ -12,6 +12,7 @@ modules = [
 
     # Specific Modules
     "kquotesAuth"
+    "kquotesProfile"
 
     # Vendor modules
     "ngRoute"

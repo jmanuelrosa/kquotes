@@ -4,6 +4,7 @@
 
 module = angular.module("kquotesAuth", [])
 module = angular.module("kquotesBase", [])
+module = angular.module("kquotesProfile", [])
 module = angular.module("kquotesResources", [])
 
 
