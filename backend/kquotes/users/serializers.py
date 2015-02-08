@@ -1,3 +1,6 @@
+from django.conf import settings
+from itsdangerous import TimedJSONWebSignatureSerializer
+
 from kquotes.base.api import serializers
 
 from . import models
@@ -21,22 +24,11 @@ class UserInfoSerializer(UserSerializer):
         fields = ("id", "username", "full_name", "avatar_url")
 
 
-from calendar import timegm
-from datetime import datetime
-from rest_framework_jwt.settings import api_settings
-
-
 class UserAuthTokenSerializer(UserSerializer):
     auth_token = serializers.SerializerMethodField()
 
+    AUTH_EXPIRATION = getattr(settings, "JWTA_AUTH_EXPIRATION", 3600 * 24 * 365 * 200)
+
     def get_auth_token(self, obj):
-        payload = api_settings.JWT_PAYLOAD_HANDLER(obj)
-
-        # Include original issued at time for a brand new token,
-        # to allow token refresh
-        if api_settings.JWT_ALLOW_REFRESH:
-            payload['orig_iat'] = timegm(
-                datetime.utcnow().utctimetuple()
-            )
-
-        return api_settings.JWT_ENCODE_HANDLER(payload)
+        s = TimedJSONWebSignatureSerializer(settings.SECRET_KEY, expires_in=self.AUTH_EXPIRATION)
+        return s.dumps({'id': obj.id}).decode("ascii")

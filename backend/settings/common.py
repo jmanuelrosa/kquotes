@@ -130,6 +130,11 @@ AUTH_USER_MODEL = "users.User"
 GRAVATAR_DEFAULT_AVATAR = ""
 GRAVATAR_AVATAR_SIZE = 50
 
+#JWAT settings
+JWTA_WWW_AUTHENTICATE_REALS = "api"
+JWTA_AUTH_HEADER_PREFIX = "jwt"
+JWTA_AUTH_EXPIRATION = 3600 * 24 * 365 * 200
+
 # Rest framework settings
 REST_FRAMEWORK = {
     # Default permiission TODO: Temporary
@@ -146,12 +151,6 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'kquotes.users.authentication.JSONWebTokenAuthentication'
     )
-    JWT_VERIFY_EXPIRATION
-}
-
-JWT_AUTH = {
-    "JWT_ALGORITHM": "HS512",
-    "JWT_VERIFY_EXPIRATION": False
 }
