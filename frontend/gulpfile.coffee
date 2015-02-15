@@ -22,6 +22,9 @@ paths = {
         index: "app/index.jade"
         partials: "app/partials/**/*.jade"
     }
+    fonts: [
+        "app/fonts/**/*"
+    ]
     sass: [
         "app/styles/**/*.scss"
     ]
@@ -81,7 +84,16 @@ gulp.task "_html-index", ->
 
 
 ######################################
-## CSS
+## fonts
+######################################
+
+gulp.task "_fonts", ->
+    gulp.src("#{paths.fonts}")
+        .pipe(gulp.dest("#{paths.dist}/fonts/"))
+
+
+######################################
+## css
 ######################################
 
 gulp.task "_sass-app", ->
@@ -151,7 +163,7 @@ gulp.task "_dev-server", ->
     #app.use("/images", express.static("#{__dirname}/dist/images"))
     #app.use("/svg", express.static("#{__dirname}/dist/svg"))
     app.use("/partials", express.static("#{__dirname}/dist/partials"))
-    #app.use("/fonts", express.static("#{__dirname}/dist/fonts"))
+    app.use("/fonts", express.static("#{__dirname}/dist/fonts"))
 
     app.all "/*", (req, res, next) ->
         # Just send the index.html for other files to support HTML5Mode
@@ -163,6 +175,7 @@ gulp.task "_dev-server", ->
 gulp.task "_dev-watch", ->
     gulp.watch     paths.jade.index,       ["_html-index"]
     gulp.watch     paths.jade.partials,    ["_html-partials"]
+    gulp.watch     paths.fonts,            ["_fonts"]
     gulp.watch     paths.sass,             ["_css"]
     gulp.watch     paths.css,              ["_css"]
     gulp.watch     paths.coffee,           ["_js-app"]
@@ -176,6 +189,7 @@ gulp.task "_dev-watch", ->
 gulp.task "default", [
     "_html-index"
     "_html-partials"
+    "_fonts"
     "_css"
     "_js-libs"
     "_js-app"

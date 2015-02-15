@@ -31,5 +31,8 @@
     "bower_components",
     "app/vendor",
     "tests"
-  ]
+  ],
+  "devDependencies": {
+    "material-design-iconic-font": "~1.1.1"
+  }
 }
