@@ -1,0 +1,3 @@
+git+git://github.com/django/django.git#egg=django
+djangorestframework==3.3.2
+psycopg2==2.6.1
