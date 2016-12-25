@@ -1,3 +1,4 @@
-git+git://github.com/django/django.git#egg=django
-djangorestframework==3.3.2
-psycopg2==2.6.1
+Django==1.10.4
+psycopg2==2.6.2
+
+graphene-django==1.2.1
