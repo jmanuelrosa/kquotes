@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'kquotes',
+    'kquotes.users',
 ]
 
 MIDDLEWARE = [
