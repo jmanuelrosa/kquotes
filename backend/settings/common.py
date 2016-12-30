@@ -64,8 +64,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'graphene_django',
+
     'kquotes',
     'kquotes.users',
+    'kquotes.quotes',
 ]
 
 MIDDLEWARE = [
@@ -121,3 +124,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+# Graphene settings
+GRAPHENE = {}

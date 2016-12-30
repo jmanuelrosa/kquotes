@@ -2,3 +2,4 @@ Django==1.10.4
 psycopg2==2.6.2
 
 graphene-django==1.2.1
+django-filter==1.0.1
