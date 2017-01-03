@@ -1,8 +1,8 @@
 import graphene
 
-from .users.schema import UsersQuery
-#from .quotes.schema import QuotesQuery
-#from .memes.schema import MemesQuery
+from .users.schema import UsersQuery, UsersMutation
+#from .quotes.schema import QuotesQuery, QuotesMutation
+#from .memes.schema import MemesQuery, MemesMutation
 
 
 class Query(UsersQuery,
@@ -14,4 +14,12 @@ class Query(UsersQuery,
     pass
 
 
-schema = graphene.Schema(query=Query)
+class Mutation(UsersMutation,
+               #QuotesMutation,
+               #MemesMutation,
+               graphene.ObjectType):
+    # This class will inherit from multiple Mutations
+    # as we begin to add more apps to our project
+    pass
+
+schema = graphene.Schema(query=Query, mutation=Mutation)
