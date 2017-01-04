@@ -56,6 +56,17 @@ def create_quote(author=None):
     return quote
 
 
+def create_score(quote, user):
+    score = Score(quote=quote,
+                  user=user,
+                  score=SD.int(0, 5))
+
+    score.save()
+
+    print("- Create score: {} from {} to the quote #{}".format(score.score, user, quote.id))
+
+    return score
+
 ####################################################
 ## MAIN COMMAND
 ####################################################
@@ -74,8 +85,15 @@ class Command(BaseCommand):
 
             # Create quotes
             for i in range(0, 20 + SD.int(max_value=80)):
-                create_quote(user)
+                quote = create_quote(user)
 
         # Create quotes without author
         for i in range(0, 20 + SD.int(max_value=80)):
             create_quote()
+
+        # Create scores
+        users = list(User.objects.all())
+        for quote in Quote.objects.all():
+            for user in users:
+                if SD.boolean():
+                    create_score(quote, user)
