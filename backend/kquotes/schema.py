@@ -1,12 +1,12 @@
 import graphene
 
 from .users.schema import UsersQuery, UsersMutation
-#from .quotes.schema import QuotesQuery, QuotesMutation
+from .quotes.schema import QuotesQuery, QuotesMutation
 #from .memes.schema import MemesQuery, MemesMutation
 
 
 class Query(UsersQuery,
-            #QuotesQuery,
+            QuotesQuery,
             #MemesQuery,
             graphene.ObjectType):
     # This class will inherit from multiple Queries
@@ -15,7 +15,7 @@ class Query(UsersQuery,
 
 
 class Mutation(UsersMutation,
-               #QuotesMutation,
+               QuotesMutation,
                #MemesMutation,
                graphene.ObjectType):
     # This class will inherit from multiple Mutations
