@@ -6,7 +6,10 @@ from graphene_django import DjangoObjectType
 
 from django.contrib.auth import get_user_model
 
-from .auth import jwt
+from kquotes.auth.jwt import settings as jwt_settings
+
+generate_payload = jwt_settings.JWT_GENERATE_PAYLOAD_HANDLER
+jwt_encode = jwt_settings.JWT_ENCODE_HANDLER
 
 
 class UserNode(DjangoObjectType):
@@ -28,7 +31,7 @@ class UserNode(DjangoObjectType):
         if self.id != context.user.id and not self.is_current_user:
             return None
 
-        payload = jwt.payload_handler(self)
-        token = jwt.encode_handler(payload)
+        payload = generate_payload(self)
+        token = jwt_encode(payload)
 
         return token
