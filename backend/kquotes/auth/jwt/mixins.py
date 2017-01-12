@@ -42,11 +42,12 @@ class JSONWebTokenAuthMixin(object):
             request, *args, **kwargs)
 
     def authenticate(self, request):
+        if 'HTTP_AUTHORIZATION' not in request.META:
+            return (request.user, None)
+
         auth = request.META.get('HTTP_AUTHORIZATION', b'').split()
 
-        auth_header_prefix = settings.JWT_AUTH_HEADER_PREFIX.lower()
-
-        if not auth or smart_text(auth[0].lower()) != auth_header_prefix:
+        if not auth or smart_text(auth[0].lower()) != settings.JWT_AUTH_HEADER_PREFIX.lower():
             raise exceptions.AuthenticationFailed()
 
         if len(auth) == 1:
