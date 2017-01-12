@@ -1,9 +1,5 @@
-class AuthenticationFailed(Exception):
-    status_code = 401
+from kquotes.auth.exceptions import BaseAuthenticationError
+
+
+class AuthenticationFailed(BaseAuthenticationError):
     detail = 'Incorrect authentication credentials.'
-
-    def __init__(self, detail=None):
-        self.detail = detail or self.detail
-
-    def __str__(self):
-        return self.detail

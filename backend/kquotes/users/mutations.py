@@ -7,6 +7,7 @@ from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
 from django.utils.encoding import force_text
 from django.utils.http import urlsafe_base64_decode as uid_decoder
 
+from kquotes.auth.decorators import login_required
 from .nodes import UserNode
 
 
@@ -137,6 +138,7 @@ class UpdateUser(relay.ClientIDMutation):
         last_name = graphene.String()
 
     @classmethod
+    @login_required
     def mutate_and_get_payload(cls, input, context, info):
         model = get_user_model()
         user = context.user
