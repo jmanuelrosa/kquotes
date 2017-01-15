@@ -1,9 +1,12 @@
 import graphene
+from graphene import AbstractType
 from graphene import relay
 
 from django.conf import settings
-from django.contrib.auth import get_user_model, authenticate
-from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
+from django.contrib.auth import authenticate
+from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import PasswordResetForm
+from django.contrib.auth.forms import SetPasswordForm
 from django.utils.encoding import force_text
 from django.utils.http import urlsafe_base64_decode as uid_decoder
 
@@ -11,29 +14,29 @@ from kquotes.auth.decorators import login_required
 from .nodes import UserNode
 
 
-class RegisterUser(relay.ClientIDMutation):
-    ok = graphene.Boolean()
-    user = graphene.Field(UserNode)
-
-    class Input:
-        username = graphene.String(required=True)
-        email = graphene.String(required=True)
-        password = graphene.String(required=True)
-        first_name = graphene.String()
-        last_name = graphene.String()
-
-    @classmethod
-    def mutate_and_get_payload(cls, input, context, info):
-        model = get_user_model()
-
-        username = input.pop('username')
-        email = input.pop('email')
-        password = input.pop('password')
-
-        user = model.objects.create_user(username, email, password, **input)
-        user.is_current_user = True
-
-        return RegisterUser(ok=True, user=user)
+#class RegisterUser(relay.ClientIDMutation):
+#    ok = graphene.Boolean()
+#    user = graphene.Field(UserNode)
+#
+#    class Input:
+#        username = graphene.String(required=True)
+#        email = graphene.String(required=True)
+#        password = graphene.String(required=True)
+#        first_name = graphene.String()
+#        last_name = graphene.String()
+#
+#    @classmethod
+#    def mutate_and_get_payload(cls, input, context, info):
+#        model = get_user_model()
+#
+#        username = input.pop('username')
+#        email = input.pop('email')
+#        password = input.pop('password')
+#
+#        user = model.objects.create_user(username, email, password, **input)
+#        user.is_current_user = True
+#
+#        return RegisterUser(ok=True, user=user)
 
 
 class LoginUser(relay.ClientIDMutation):
@@ -167,3 +170,11 @@ class UpdateUser(relay.ClientIDMutation):
         updated_user = model.objects.get(pk=user.pk)
 
         return UpdateUser(ok=True, result=updated_user)
+
+
+class UsersMutation(AbstractType):
+#    register_user = RegisterUser.Field()
+    login_user = LoginUser.Field()
+    reset_password_request = ResetPasswordRequest.Field()
+    reset_password = ResetPassword.Field()
+    update_user = UpdateUser.Field()

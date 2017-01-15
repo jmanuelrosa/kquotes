@@ -1,8 +1,13 @@
 import graphene
 
-from .users.schema import UsersQuery, UsersMutation
-from .quotes.schema import QuotesQuery, QuotesMutation
-#from .memes.schema import MemesQuery, MemesMutation
+from .users.queries import UsersQuery
+from .users.mutations import UsersMutation
+
+from .quotes.queries import QuotesQuery
+from .quotes.mutations import QuotesMutation
+
+#from .memes.queries import MemesQuery
+#from .memes.mutations import MemesMutation
 
 
 class Query(UsersQuery,

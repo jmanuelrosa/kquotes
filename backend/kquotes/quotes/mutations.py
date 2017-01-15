@@ -1,4 +1,5 @@
 import graphene
+from graphene import AbstractType
 from graphene import relay
 
 from django.contrib.auth import get_user_model
@@ -47,3 +48,7 @@ class AddQuote(relay.ClientIDMutation):
         quote.save()
 
         return AddQuote(ok=True, quote=quote)
+
+
+class QuotesMutation(AbstractType):
+    add_quote = AddQuote.Field()
